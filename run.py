@@ -22,10 +22,10 @@ def get_sales_data():
     print("Data should be 6 numbers, separatd by commas.")
     print("Example: 10,20,30,40,50,60\n")
 
-    data_str = input(">")
+    data_str = input("Input data:\n")
     sales_data = [data.strip() for data in data_str.split(",")]
     while not validate_data(sales_data):
-        data_str = input(">")
+        data_str = input("Input data:\n")
         sales_data = [data.strip() for data in data_str.split(",")]
 
     return [int(data) for data in sales_data]
