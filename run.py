@@ -103,6 +103,14 @@ def calculate_stock_data(data):
     return new_stock_data
 
 
+def get_stock_values(data):
+    """
+    Return a dictionary of sandwich type and recommended stock
+    """
+    headings = SHEET.worksheet("stock").get_all_values()[0]
+    return {key: value for key, value in zip(headings, data)}
+
+
 def main():
     """
     Run main program functions
@@ -114,6 +122,7 @@ def main():
     sales_columns = get_last_5_entries_sales()
     new_stock_data = calculate_stock_data(sales_columns)
     update_worksheet(new_stock_data, "stock")
+    print(f"Recommended stock for next market:\n{get_stock_values(new_stock_data)}")
 
 
 print("Welcome to Love Sandwiches Data Automation\n")
