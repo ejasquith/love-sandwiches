@@ -24,7 +24,9 @@ def get_sales_data():
 
     data_str = input(">")
     sales_data = [data.strip() for data in data_str.split(",")]
-    validate_data(sales_data)
+    while not validate_data(sales_data):
+        data_str = input(">")
+        sales_data = [data.strip() for data in data_str.split(",")]
 
 
 def validate_data(values):
@@ -41,6 +43,9 @@ def validate_data(values):
         values = [int(data) for data in values]
     except ValueError as e:
         print(f"Invalid data: {e}\nPlease try again.")
+        return False
+    else:
+        return True
 
 
 get_sales_data()
