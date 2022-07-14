@@ -72,8 +72,18 @@ def calculate_surplus_data(sales_row):
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
-    
+
     return [sales - int(stock) for sales, stock in zip(sales_row, stock_row)]
+
+
+def update_surplus_data(data):
+    """
+    Update surplus worksheet, add new row with list provided.
+    """
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet("surplus")
+    surplus_worksheet.append_row(data)
+    print("Surplus worksheet updated.\n")
 
 
 def main():
@@ -83,6 +93,7 @@ def main():
     data = get_sales_data()
     update_sales_data(data)
     new_surplus_data = calculate_surplus_data(data)
+    update_surplus_data(new_surplus_data)
 
 
 print("Welcome to Love Sandwiches Data Automation\n")
