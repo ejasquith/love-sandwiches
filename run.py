@@ -27,6 +27,8 @@ def get_sales_data():
     while not validate_data(sales_data):
         data_str = input(">")
         sales_data = [data.strip() for data in data_str.split(",")]
+    
+    return sales_data
 
 
 def validate_data(values):
@@ -48,4 +50,4 @@ def validate_data(values):
         return True
 
 
-get_sales_data()
+data = get_sales_data()
