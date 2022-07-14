@@ -62,7 +62,7 @@ def calculate_surplus_data(sales_row):
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
 
-    return [sales - int(stock) for sales, stock in zip(sales_row, stock_row)]
+    return [int(stock) - sales for sales, stock in zip(sales_row, stock_row)]
 
 
 def update_worksheet(data, worksheet):
@@ -88,6 +88,21 @@ def get_last_5_entries_sales():
     return columns
 
 
+def calculate_stock_data(data):
+    """
+    Calculate the recommended stock for each product type
+    Recommendation is average of last 5 sales figures + 10%
+    """
+    print("Calculating recommended stock data...\n")
+    new_stock_data = []
+    for column in data:
+        int_column = [int(data) for data in column]
+        new_stock_data.append(
+            round((sum(int_column) / len(int_column)) * 1.1, 0))
+    print("Recommended stock data calculated.\n")
+    return new_stock_data
+
+
 def main():
     """
     Run main program functions
@@ -97,6 +112,8 @@ def main():
     new_surplus_data = calculate_surplus_data(data)
     update_worksheet(new_surplus_data, "surplus")
     sales_columns = get_last_5_entries_sales()
+    new_stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(new_stock_data, "stock")
 
 
 print("Welcome to Love Sandwiches Data Automation\n")
