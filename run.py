@@ -38,6 +38,7 @@ def validate_data(values):
             raise ValueError(
                 f"6 values expected, {len(values)} provided"
             )
+        values = [int(data) for data in values]
     except ValueError as e:
         print(f"Invalid data: {e}\nPlease try again.")
 
